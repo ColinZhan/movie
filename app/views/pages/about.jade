@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+	.container
+		.row
+			.text-left.col-xs-12(style="line-height:1;")
+				a(href="javascript:;", style="color: #333;", tab-area="en", name="tab-lang") English
+				span  / 
+				a(href="javascript:;", style="color: #333;", tab-area="ch", name="tab-lang") 中文
+		.row(style="min-height: 600px;")
+			#ch.col-md-8.col-md-offset-2(style="display: none;font-size: 1.5rem;line-height: 1.8")
+				h2.text-center 摘  要
+				p &nbsp;&nbsp;&nbsp;&nbsp;随着社会的不断更新科学技术的不断发展，人们的生活水平不断提高，很多市民在空闲时间愿意上影院或网络上看自己喜爱的电影，以此来放松自己舒缓压力。文化事业也因此全面蓬勃发展，众多商家一哄而入，又带来了新的弊端：人们苦于在众多噱头宣传中找到自己喜爱的电影。众所周知，电影现在越来越流行，已走入了人们的生活，同时甚至反映着人民经济与观念的改变。正因为电影市场影响如此深远，所以为了宣传一部电影而制作网站以供观众了解剧情、导演、主演等电影详细信息是件很有必要的事，现实生活中比如《铜雀台》等大制作电影也有了自己专属的宣传网站。
+				p &nbsp;&nbsp;&nbsp;&nbsp;本网站采用了基于Node.js语言的express 开源框架，结合MongoDB非关系型数据库，开发一个B/S模式的电影介绍网站，网站有前台和后台之分，前台主要用来展示电影信息，用户信息，用户评论及其回复。后台的主要功能是电影管理，电影类型管理，用户管理。进入后台需要权限验证，普通用户访问不到。
+				p &nbsp;&nbsp;&nbsp;&nbsp;主要功能如下：
+					ul
+						li 登录与注册
+						li 评论与回复
+						li 用户管理
+						li 电影、电影类型管理
+						li 电影搜索
+						li 同步豆瓣数据
+						li 权限设置
+				p 关键词：Node.js；MongoDB；Bootstrap；jQuery；
+
+			#en.col-md-8.col-md-offset-2(style="font-size: 1.5rem;line-height: 1.8")
+				h2.text-center Abstract
+				p &nbsp;&nbsp;&nbsp;&nbsp;With the continuous updating of society and the continuous development of science and technology, people's living standards have been continuously improved. Many citizens are willing to watch their favorite movies in theaters or on the Internet during their free time, so as to relax their stress. Cultural undertakings have thus flourished. Many businesses have come in at one stroke. They have also brought with them new drawbacks: People are struggling to find their favorite movies in numerous publicity campaigns. As we all know, movies are becoming more and more popular and have entered people's lives. At the same time, they even reflect changes in people's economy and ideas. Because the film market is so far-reaching, it is necessary to create a website for the audience to understand the details of the movie, such as the story, the director, and the starring, in real life, such as the production of “Banque Taiwan”. The movie also has its own dedicated promotional website. 
+				p &nbsp;&nbsp;&nbsp;&nbsp;This website uses the expressive open source framework based on Node.js language and combines with MongoDB non-relational database to develop a B/S mode movie introduction website. The website has foreground and background points. The foreground is mainly used to display movie information and user information. , user reviews and responses. The main functions of the background are movie management, movie type management, and user management. Access to the background requires permission verification, and ordinary users cannot access it.
+				p &nbsp;&nbsp;&nbsp;&nbsp;The main functions of the blog system are as follows:
+					ul
+						li Login and Registration
+						li Comments and replies
+						li User Management
+						li Film 、Film Type Management
+						li Movie Search
+						li Synchronizing watercress data
+						li Permission settings
+
+				p Key words: Node.js;MongoDB;Bootstrap;jQuery; 

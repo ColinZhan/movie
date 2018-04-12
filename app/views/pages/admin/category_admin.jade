@@ -1,0 +1,11 @@
+extends ../../layout
+
+block content
+  .container
+    .row
+      form.form-inline(method="post", action="/admin/category")
+        .form-group
+          label(for="inputCategory") 电影类型&nbsp;&nbsp;
+          input#inputCategory.form-control(type="text", name="category[name]", value= category.name, required)
+          &nbsp;&nbsp;
+        button.btn.btn-default(type="submit") 录入

@@ -1,0 +1,39 @@
+ul.pagination.pull-left.clearfix
+
+	if currentPage > 1
+		li
+			a(href="/admin/category/list?p=#0" aria-label="First")
+				span(aria-hidden="true") 首页
+		li
+			a(href="/admin/category/list?p=#{currentPage-2}" aria-label="Previous")
+				span(aria-hidden="true") 上一页
+	- var end = totalPage;
+	- var start = 0;
+	- if(end > 10){
+		- end = 10;
+		- if(currentPage > 4){
+			- if(currentPage <= (totalPage-10)){
+					- end = currentPage+5;
+					- start = currentPage-5;
+			- }else{
+					- end = totalPage;
+					- start = totalPage-10
+			- }
+		- }
+	- }
+	- for(; start < end; start++){
+			- if(currentPage == (start+1)){
+				li.active
+					span #{currentPage}
+			- }else{
+				li
+					a(href="/admin/category/list?p=#{start}") #{start+1}
+			- }
+	- }
+	if totalPage > currentPage
+		li
+			a(href="/admin/category/list?p=#{currentPage}" aria-label="Next")
+				span(aria-hidden="true") 下一页
+		li
+			a(href="/admin/category/list?p=#{totalPage-1}" aria-label="Last")
+				span(aria-hidden="true") 尾页

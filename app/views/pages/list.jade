@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+	.container
+		.row
+			if categories
+				each cat in categories
+					if cat.movies && cat.movies.length > 0
+						.panel.panel-info
+							.panel-heading
+								h3
+									a.text-primary(href="/results?cat=#{cat._id}&p=0") #{cat.name}
+							.panel-body
+								each movie in cat.movies
+									.movie.col-md-2.col-sm-3.col-xs-6
+										a(href="/movie/#{movie._id}")
+											img(src="#{movie.poster}", alt="#{movie.title}").img-thumbnail
+											h4.text-center= movie.title

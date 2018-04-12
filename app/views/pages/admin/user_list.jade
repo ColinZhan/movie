@@ -1,0 +1,84 @@
+extends ../../layout
+
+block content
+	.container
+		.row
+			#setRole.modal.fade
+				.modal-dialog
+					.modal-content
+						form(method="POST", action="/admin/user/setrole")
+							h2.modal-header.text-primary.text-center.text-uppercase 设置用户权限
+							.modal-body
+								.form-group
+									input#id(name="user[id]" type="hidden" value="")
+									select.form-control#role(name="user[role]")
+										option(value="1") 普通用户
+										option(value="10") 管理员
+										option(value="50") 超级管理员
+							.modal-footer
+								button.btn.btn-default(type="button", data-dismiss="modal") 取消
+								button.btn.btn-primary(type="submit") 确定
+			table.table.table-hover.text-center
+				thead
+					tr
+						th 昵称
+						th 用户名
+						th 性别
+						th 出生日期
+						th 注册于
+						th 权限设置
+						th(style="padding-left:1.3%;") 删除
+				tbody
+					each item in users
+						tr
+							td #{item.nick}
+							td #{item.name}
+							td #{item.getSex(item.sex)}
+							td #{moment(item.birthAt).format('YYYY/MM/DD')}
+							td #{moment(item.meta.createAt).format('YYYY/MM/DD')}
+							td
+								a(href="#", data-toggle="modal", data-target="#setRole", data-id="#{item._id}", data-role="#{item.role}") 修改
+							td
+								button.btn.btn-danger.btn-sm.del(type="button", data-id="#{item._id}") 删除
+			ul.pagination.pull-right.clearfix
+				if totalPage > 1
+					if currentPage > 1
+						li
+							a(href="/admin/user/list?p=#0" aria-label="First")
+								span(aria-hidden="true") 首页
+						li
+							a(href="/admin/user/list?p=#{currentPage-2}" aria-label="Previous")
+								span(aria-hidden="true") 上一页
+					- var end = totalPage;
+					- var start = 0;
+					- if(end > 10){
+						- end = 10;
+						- if(currentPage > 4){
+							- if(currentPage <= (totalPage-10)){
+									- end = currentPage+5;
+									- start = currentPage-5;
+							- }else{
+									- end = totalPage;
+									- start = totalPage-10
+							- }
+						- }
+					- }
+					- for(; start < end; start++){
+							- if(currentPage == (start+1)){
+								li.active
+									span #{currentPage}
+							- }else{
+								li
+									a(href="/admin/user/list?p=#{start}") #{start+1}
+							- }
+					- }
+					if totalPage > currentPage
+						li
+							a(href="/admin/user/list?p=#{currentPage}" aria-label="Next")
+								span(aria-hidden="true") 下一页
+						li
+							a(href="/admin/user/list?p=#{totalPage-1}" aria-label="Last")
+								span(aria-hidden="true") 尾页
+
+
+	script(src="/js/index.js")

@@ -1,0 +1,22 @@
+extends ../../layout
+
+block content
+	.container
+		.row
+			table.table.table-hover.text-center
+				thead
+					tr
+						th 类别
+						th 录入时间
+						th 更新
+						th(style="padding-left:1%;") 删除
+				tbody
+					each item in categories
+						tr(class="item-id-#{item._id}")
+							td= item.name
+							td= moment(item.meta.updateAt).format('MM/DD/YYYY')
+							td: a(target="_blank", href="../movie/update/#{item._id}") 修改
+							td
+								button.btn.btn-danger.btn-sm.del(type="button", data-id="#{item._id}") 删除
+			include ../../includes/pagination
+	script(src="/js/admin.js")

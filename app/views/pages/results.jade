@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+	.container
+		.row
+			.panel.panel-default
+				.panel-heading
+					h3= keyword
+				.panel-body
+					if movies && movies.length > 0
+						each movie in movies
+							.col-sm-2
+								a(href="/movie/#{movie._id}")
+									img(src="#{movie.poster}", alt="#{movie.title}").img-thumbnail
+									h4.text-center= movie.title
+								//- p.text-center: a.btn.btn-default(href="/movie/#{movie.id}", role="button") 查看详情
+			ul.pagination.pull-left.clearfix
+
+				if currentPage > 1
+					li
+						a(href="/results?p=0&#{query}" aria-label="First")
+							span(aria-hidden="true") 首页
+					li
+						a(href="/results?p=#{currentPage-2}&#{query}" aria-label="Previous")
+							span(aria-hidden="true") 上一页
+				- for(var i = 0; i < totalPage; i++){
+						- if(currentPage == (i+1)){
+							li.active
+								span #{currentPage}
+						- }
+						- else{
+							li
+								a(href="/results?p=#{i}&#{query}") #{i + 1}
+						- }
+				- }
+				if totalPage > currentPage
+					li
+						a(href="/results?p=#{currentPage}&#{query}" aria-label="Next")
+							span(aria-hidden="true") 下一页
+					li
+						a(href="/results?p=#{totalPage-1}&#{query}" aria-label="Last")
+							span(aria-hidden="true") 尾页

@@ -1,0 +1,51 @@
+doctype
+html
+	head
+	meta(charset="utf-8")
+	meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+	title= title
+	include ../includes/head
+body
+	.container
+		.row
+			.col-md-6.center-block(style="float:none;")
+				.user-form
+					h1.text-primary.text-center.text-uppercase= title
+					hr
+					form.form-horizontal(method="POST", action="/user/signup", enctype="multipart/form-data")
+						.form-group
+							label(for="signupName").col-sm-2.control-label 用户名
+							.col-sm-10
+								input(name="user[name]", type="text",placeholder="请输入用户名", required, autofocus)#signupName.form-control
+						.form-group
+							label(for="nickName").col-sm-2.control-label 昵称
+							.col-sm-10
+								input(name="user[nick]", type="text",placeholder="请输入昵称", required, autofocus)#nickName.form-control
+						.form-group
+							label(for="signupPassword").col-sm-2.control-label 密码
+							.col-sm-10
+								input(name="user[password]", type="password", placeholder="请输入密码", required)#signupPassword.form-control
+						.form-group
+							label(for="pass").col-sm-2.control-label 确认密码
+							.col-sm-10
+								input(name="user[pass]", type="password", placeholder="请再次输入密码", required)#pass.form-control
+						.form-group
+							label(for="photo").col-sm-2.control-label 头像
+							.col-sm-10
+								input(name="photo", type="file")#photo
+						.form-group
+							label(for="signupSex").col-sm-2.control-label 性别
+							.col-sm-10
+								label.radio-inline
+									input(type="radio", name="user[sex]", value= 1, checked)
+									span 男
+								label.radio-inline
+									input(type="radio", name="user[sex]", value= 0)
+									span 女
+						.form-group
+							label(for="signupBirthAt").col-sm-2.control-label 出生日期
+							.col-sm-10
+								input(name="user[birthAt]", type="text", placeholder="请选择出生日期", data-language="ch", data-multiple-dates-separator="~", readonly)#signupBirthAt.form-control.datepicker-here
+						.form-group
+							.col-sm-offset-2.col-sm-10
+								button.btn.btn-success(type="submit") 注册

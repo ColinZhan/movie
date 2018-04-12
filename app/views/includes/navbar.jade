@@ -1,0 +1,36 @@
+nav.navbar.navbar-default
+	.container
+		ul.nav.navbar-nav(style="margin-left:-15px;")
+			if route == 'index'
+				li.active
+					a(href="/") 首页
+			else
+				li
+					a(href="/") 首页
+			if route == 'list'
+				li.active
+					a(href="/list") 电影
+			else 
+				li
+					a(href="/list") 电影
+			if route == 'douban'
+				li.active
+					a(href="/douban") 豆瓣TOP250
+			else 
+				li
+					a(href="/douban") 豆瓣TOP250
+			if route == 'about'
+				li.active
+					a(href="/about") 关于
+			else 
+				li
+					a(href="/about") 关于
+
+		if user && user.role >= 10
+			p.navbar-text.navbar-right
+				a.navbar-link(href="/admin/movie/new") 新增
+				span &nbsp; | &nbsp;
+				a.navbar-link(href="/admin/movie/list") 列表
+				if user.role > 10
+					span &nbsp; | &nbsp;
+					a.navbar-link(href="/admin/user/list") 用户列表

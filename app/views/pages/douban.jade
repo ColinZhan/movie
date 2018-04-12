@@ -1,0 +1,67 @@
+extends ../layout
+
+block content
+	.container
+		.row
+			.panel.panel-default
+				if movies
+					.panel-body
+						each movie in movies
+							.movie-box-md.col-md-4.col-sm-6.col-xs-12
+								.col-xs-6
+									span.rank.label.label-danger #{rank++}
+									img(src="#{movie.images.large}", alt="#{movie.title}").img-thumbnail
+								.col-xs-6
+									a(href="#{movie.alt}")
+										h4.text-primary #{movie.title}
+									p #{movie.genres}
+									each cast in movie.casts
+										a(href="#{cast.alt}", target="_blank") #{cast.name}
+										span &nbsp;&nbsp;
+									p #{movie.directors.name}
+									p #{movie.year}
+									p.text-success
+										strong
+											| 评分：#{ movie.rating.average }
+
+					.panel-footer.text-right
+						ul.pagination
+							if currentPage > 1
+								li
+									a(href="/douban?p=0" aria-label="First")
+										span(aria-hidden="true") 首页
+								li
+									a(href="/douban?p=#{currentPage-2}" aria-label="Previous")
+										span(aria-hidden="true") 上一页
+							- var end = totalPage;
+							- var start = 0;
+							- if(end > 10){
+								- end = 10;
+								- if(currentPage > 4){
+									- if(currentPage <= (totalPage-10)){
+											- end = currentPage+5;
+											- start = currentPage-5;
+									- }else{
+											- end = totalPage;
+											- start = totalPage-10
+									- }
+								- }
+							- }
+							- for(; start < end; start++){
+									- if(currentPage == (start+1)){
+										li.active
+											span #{currentPage}
+									- }else{
+										li
+											a(href="/douban?p=#{start}") #{start+1}
+									- }
+							- }
+							if totalPage > currentPage
+								li
+									a(href="/douban?p=#{currentPage}" aria-label="Next")
+										span(aria-hidden="true") 下一页
+								li
+									a(href="/douban?p=#{totalPage-1}" aria-label="Last")
+										span(aria-hidden="true") 尾页
+				else
+					h3.text-center.text-muted 超过豆瓣API规定的请求次数，访问已受到限制。
