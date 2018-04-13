@@ -1,36 +1,35 @@
 extends ../layout
 
 block content
-	.container-fluid
+	.container
 		.row
-			.col-sm-12
-				#hot_carousel.carousel.slide.text-center(data-ride="carousel")
-					if hotm
-						ol.carousel-indicators
-							- for(var i = 0; i< hotm.length; i++)
-								- if(i==0)
-									li.active(data-target="#hot_carousel" data-slide-to="#{i}")
-								- else
-									li(data-target="#hot_carousel" data-slide-to="#{i}")
+			#hot_carousel.carousel.slide.text-center(data-ride="carousel")
+				if hotm
+					ol.carousel-indicators
+						- for(var i = 0; i< hotm.length; i++)
+							- if(i==0)
+								li.active(data-target="#hot_carousel" data-slide-to="#{i}")
+							- else
+								li(data-target="#hot_carousel" data-slide-to="#{i}")
 
-						.carousel-inner(role="listbox")
-							- for(var i = 0; i< hotm.length; i++)
-								- if(i==0)
-									.item.active
-										a(href="/movie/#{hotm[i]._id}")
-											img(src="/upload/#{hotm[i].photo}" alt="#{ hotm[i].title }")
-											.carousel-caption #{ hotm[i].title }
-								- else
-									.item
-										a(href="/movie/#{hotm[i]._id}")
-											img(src="/upload/#{hotm[i].photo}" alt="#{ hotm[i].title }")
-											.carousel-caption #{ hotm[i].title }
-					a.left.carousel-control(href="#hot_carousel" role="button" data-slide="prev")
-						span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
-						span.sr-only Previous
-					a.right.carousel-control(href="#hot_carousel" role="button" data-slide="next")
-						span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
-						span.sr-only Next
+					.carousel-inner(role="listbox")
+						- for(var i = 0; i< hotm.length; i++)
+							- if(i==0)
+								.item.active
+									a(href="/movie/#{hotm[i]._id}")
+										img(src="/upload/#{hotm[i].photo}" alt="#{ hotm[i].title }")
+										.carousel-caption #{ hotm[i].title }
+							- else
+								.item
+									a(href="/movie/#{hotm[i]._id}")
+										img(src="/upload/#{hotm[i].photo}" alt="#{ hotm[i].title }")
+										.carousel-caption #{ hotm[i].title }
+				a.left.carousel-control(href="#hot_carousel" role="button" data-slide="prev")
+					span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+					span.sr-only Previous
+				a.right.carousel-control(href="#hot_carousel" role="button" data-slide="next")
+					span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+					span.sr-only Next
 	hr
 	.container
 		.row

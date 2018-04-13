@@ -68,7 +68,8 @@ block content
 					dt 上映年份:
 					dd= movie.year
 					dt 简介:
-					dd= movie.summary
-				.panel.panel-default
-					.panel-body.text-center
-						img.img-thumbnail(src="/upload/#{movie.photo}", alt="#{movie.title}", style="display: inline-block;")
+					dd(style="max-height:360px;overflow:hidden")= movie.summary
+				if (movie.photo != undefined && movie.photo != null && movie.photo !='')
+					.panel.panel-default
+						.panel-body.text-center
+							img.img-thumbnail(src="/upload/#{movie.photo}", alt="#{movie.title}", style="display: inline-block;")

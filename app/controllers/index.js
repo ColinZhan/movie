@@ -11,7 +11,7 @@ exports.index = function(req, res, next) {
   // 最近热门时间范围
   var end = moment(Date.now());
   var start = moment(Date.now()).subtract(5, 'year');
-   // 5条最近热门轮播
+   // 5条最近5年的热门电影 轮播
   Movie.where('meta.createAt').gte(start).lte(end).limit(5).sort({'pv': 'desc'}).exec( function( err, hotm ) {
       if(err) console.log(err);
       // 12条最新上架
@@ -77,19 +77,12 @@ exports.douban = function(req, res, next) {
 
 /* GET about  */
 exports.about = function(req, res, next) {
-  Category
-    .find().limit(12).sort({'meta.updateAt': 'desc'})
-    .populate({ path: 'movies', options: { limit: 6 } })
-    .exec(function(err, categories){
-      if(err) console.log(err);
 
-      if(categories){
-        res.render('pages/about', {
-          title: '关于',
-          route: 'about'
-        });
-      }
-    });
+  res.render('pages/about', {
+    title: '关于',
+    route: 'about'
+  });
+
 };
 
 
@@ -115,8 +108,7 @@ exports.search = function(req, res) {
         Movie.find({category: catId})       //按类型查询电影
           .skip(page*count)                 //跳过的条数
           .limit(count)                     //条数
-          /* 待修改，应改为按时间降序 + 按访问次数降序 */
-          .sort({'_id': -1})                //按_id字段排序（1：升序；-1：降序）
+          .sort({'meta.updateAt': 'desc', 'pv':'desc'})
           .exec(function(err, movies){
             if(err) console.log(err);
 
@@ -138,6 +130,7 @@ exports.search = function(req, res) {
     Movie
       //实例化一个正则，利用正则完成模糊查询
       .find({title: new RegExp(key+ '.*', 'i')})
+      .sort({'meta.updateAt': 'desc', 'pv':'desc'})
       .exec(function(err, movies){
         if(err) console.log(err);
 

@@ -36,10 +36,9 @@ exports.list = function(req, res, next) {
   var index = page * num;
 
   Movie.count({}, function(err, count) {
-    Movie.find({}).skip(page* num).limit(num).sort({
-      'meta.updateAt': -1,
-      'pv': -1
-    }).exec(function(err, movies){
+    Movie.find({}).skip(page* num).limit(num)
+    .sort({ 'meta.updateAt': 'desc', 'pv': 'desc' })
+    .exec(function(err, movies){
       if(err){ console.log(err); }
 
       if(movies){
@@ -49,7 +48,8 @@ exports.list = function(req, res, next) {
         res.render( 'pages/admin/list' , {
           title: '电影列表',
           currentPage: ( page + 1 ),        //当前页码
-          totalPage: totalPage,                 //总页数
+          totalPage: totalPage,             //总页数
+          route: 'adminlist',
           movies: movies,
         });
       }
@@ -66,6 +66,7 @@ exports.new = function(req, res) {
     res.render('pages/admin/admin', {
       title: '新增电影',
       categories: categories,
+      route: 'adminmovie',
       movie: {}
     });
   });

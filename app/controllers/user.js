@@ -86,6 +86,7 @@ exports.list = function(req, res, next) {
 					title: '用户列表',
 					currentPage: (page+1),        //当前页码
 					totalPage: totalPage,         //总页数
+					route: 'adminuser',
 					users: users
 				});
 			}
