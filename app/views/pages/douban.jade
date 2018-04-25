@@ -8,12 +8,18 @@ block content
 					.panel-body
 						each movie in movies
 							.movie-box-md.col-md-4.col-sm-6.col-xs-12
+								a(href="#{movie.alt}", target="_blank")
+									.col-xs-6
+										span.rank.label.label-danger #{rank++}
+										img(src="#{movie.images.large}", alt="#{movie.title}").img-thumbnail
 								.col-xs-6
-									span.rank.label.label-danger #{rank++}
-									img(src="#{movie.images.large}", alt="#{movie.title}").img-thumbnail
-								.col-xs-6
-									a(href="#{movie.alt}")
-										h4.text-primary #{movie.title}
+									a(href="#{movie.alt}", target="_blank")
+										h4(style="display:inline-block")
+											strong #{movie.title}
+									p
+										each director in movie.directors
+											a(href="#{director.alt}", target="_blank") #{director.name}
+											span &nbsp;&nbsp;
 									p #{movie.genres}
 									each cast in movie.casts
 										a(href="#{cast.alt}", target="_blank") #{cast.name}

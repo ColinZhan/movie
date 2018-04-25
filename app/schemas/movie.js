@@ -15,7 +15,6 @@ var MovieSchema = new Schema({
 	summary: String,
 	flash: String,
 	poster: String,
-	poster: String,
 	photo: String,
 	year: Number,
 	pv: {type: Number, default: 0},

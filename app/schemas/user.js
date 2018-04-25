@@ -78,7 +78,7 @@ UserSchema.methods = {
 	comparePassword: function(_password, cb){
 		bcrypt.compare(_password, this.password, function(err, isMatch){
 			if(err) return cb(err);	//将错误包装到回调方法中返回
-			cb(null, isMatch);		//将错误设成null，返回对比结果
+			else cb(null, isMatch);		//将错误设成null，返回对比结果
 		});
 	},
 
