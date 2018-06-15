@@ -193,6 +193,19 @@ exports.del = function(req, res){
         Category.update({_id: category_id},{$pull: {movies: movie_id}}, function(err){
           if(err) console.log(err);
 
+          Category.findOne({_id: category_id}).exec(function(err, cate){
+            if(err){ console.log(err); }
+
+            // console.log(cate.movies);
+
+            if(cate.movies.length <= 0){
+              Category.remove({_id: category_id}, function(err){
+                if(err){ console.log(err); }
+              });
+            }
+
+          });
+
           Movie.remove({_id: id}, function(err){
             if(err){
               console.log(err);

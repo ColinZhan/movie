@@ -10,7 +10,7 @@ var path = require('path');
 exports.index = function(req, res, next) {
   // 最近热门时间范围
   var end = moment(Date.now());
-  var start = moment(Date.now()).subtract(5, 'year');
+  var start = moment(Date.now()).subtract(1, 'year');
    // 5条最近5年的热门电影 轮播
   Movie.where('meta.createAt').gte(start).lte(end).limit(5).sort({'pv': 'desc'}).exec( function( err, hotm ) {
       if(err) console.log(err);
@@ -18,7 +18,7 @@ exports.index = function(req, res, next) {
       Movie.find().limit(24).sort({'meta.createAt': 'desc', 'pv': 'desc'}).exec( function( err, newm ) {
         if( hotm && newm ){
           res.render('pages/index', {
-            title: 'COLIN电影网',
+            title: '电影网(毕业设计)',
             hotm: hotm,
             newm: newm,
             route: 'index'
@@ -173,11 +173,11 @@ exports.savePhoto = function(req, res, next) {
       fs.writeFile(newpath, data, function(err) {
         req.photo = pho;
         next();
-      })
+      });
 
     });
   }
   else {
     next();
   }
-}
+};

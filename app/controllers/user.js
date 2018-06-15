@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var bcrypt = require('bcrypt-nodejs');			//专门为密码存储设计的算法
 
 //user signup
 exports.signup = function(req, res){
@@ -44,6 +45,8 @@ exports.signin = function(req, res){
 			if(err) console.log(err);
 
 
+			console.log(isMatch);
+
 			if(isMatch){
 				req.session.user = user;		//保存用户登录信息
 				return res.redirect('/');
@@ -70,13 +73,85 @@ exports.showSignin = function(req, res){
 	});
 };
 
+// 个人信息
+exports.profile = function(req, res){
+	res.render('pages/profile', {
+		title: '个人信息'
+	});
+};
+// 用户更新信息
+exports.changeinfo = function(req, res){
+	// 登录用的session值
+	var _user = req.session.user;
+	// 查询数据库
+	User.findOne({_id: _user._id}, function(err, user){
+		if(err) console.log(err);
+		// 存在此用户
+		if(user){
+			// 上传头像
+			if(req.photo) { _user.portrait = req.photo; }
+			// 修改昵称
+			_user.nick = req.body.user.nick;
+			// console.log(user);
+			// 更新信息
+			User.update({_id: user.id}, {$set: {nick: _user.nick,portrait: _user.portrait}}, function(err){
+				if(err) console.log(err);
+				// 响应
+				return res.redirect('/profile');
+			});
+
+		}
+		else{ return res.redirect('/signin'); }
+
+	});
+};
+// 修改密码
+exports.changepwd = function(req, res){
+	// 登录用的session值
+	var _user = req.session.user;
+	// 明文密码
+	_user.password = req.body.newpassword;
+
+	// console.log(req.body.newpassword);
+	// 查询数据库
+	User.findOne({_id: _user._id}, function(err, user){
+		if(err) console.log(err);
+		// 存在此用户
+		if(user){
+			// 生成一个随机的盐（强度10需要和Schemas里面的定义的值保持一致）
+			bcrypt.genSalt( 10, function(err, salt){
+				if(err) return next(err);
+				// 加密
+				bcrypt.hash( _user.password, salt, null, function(err, hash){
+					if(err) return next(err);
+					// 更新密码
+					User.update({_id: user.id}, {$set: {password: hash}}, function(err){
+
+						if(err) console.log(err);
+						// 响应
+						// console.log();
+						else res.json({success: 1});
+
+					});
+				});
+			});
+
+		}
+		// 用户不存在
+		else{ return res.redirect('/signin'); }
+
+	});
+};
+
+
+
 /* GET user list. */
 exports.list = function(req, res, next) {
 	var page = parseInt(req.query.p, 10) || 0;		//要查询的页码，数字化，如果req.query.p找不到，则默认为0
 	var count = 10;									//每页数据条数
 	var index = page * count;
 
-	User.find({}).skip(page* count).limit(count).sort({'meta.createAt': -1})
+	User.find({}).skip(page* count).limit(count).sort({'meta.createAt': 'desc'})
 		.exec(function(err, users){
 			if(err){ console.log(err);}
 
@@ -158,7 +233,7 @@ exports.setrole = function(req, res) {
 				res.redirect('/admin/user/list');
 			});
 
-			console.log('查无此用户！不能设置权限。')
+			console.log('查无此用户！不能设置权限。');
 		});
 	}
 };

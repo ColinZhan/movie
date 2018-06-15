@@ -16,7 +16,7 @@ exports.save = function(req, res){
       // console.log(_comment);
       // console.log(comment);
 
-      /* 初始化一个reply数组，并填充传入的表单数据 */
+      /* 初始化一个reply对象，并填充传入的表单数据 */
       var reply = {
         from: _comment.from,
         to: _comment.tid,
@@ -32,7 +32,8 @@ exports.save = function(req, res){
         res.redirect('/movie/'+ movieId);
       });
     });
-  }else{  //不是回复评论
+  }
+  else{  //不是回复评论
     var comment = new Comment(_comment);
 
     comment.save(function(err, comment){
@@ -40,5 +41,6 @@ exports.save = function(req, res){
       res.redirect('/movie/'+ movieId);
     });
   }
+
 };
 
