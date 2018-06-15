@@ -1,0 +1,38 @@
+extends ../layout
+
+block content
+	.container
+		.row
+			.col-sm-8.col-sm-offset-2
+				.panel.panel-default.tab-view
+					form#profile(method="POST", action="/user/changeinfo", enctype="multipart/form-data")
+						.panel-body.text-center(style="padding: 65px 0")
+							.row
+								.preview#preview
+									img.img-circle(src="/upload/#{user.portrait}", alt="#{user.nick}" style="width:120px")
+							.row(style="padding-top: 2rem")
+								a.text-muted(href="#",style="position:relative") 更换头像
+									input(type="file",style="position:absolute;top:0;left:0;opacity:0;cursor:pointer;padding-top:2rem",onchange="javascript:preview(this)", name="photo", val-type="image").form-control
+							.row
+								.col-sm-8.col-sm-offset-2
+									//- 用户昵称
+									input(name="user[nick]", type="text", value="#{user.nick}", style="font-size: 4rem;height: 4rem;margin: 1rem 0 0; border:none;", val-type="nick").text-center.form-control
+
+							.row.text-muted(style="line-height:3")
+								h4 #{ user.sex == 0 ? '女':'男' }
+								h4 #{ moment(user.birthAt).format('YYYY-MM-DD') }
+								p.text-muted 注册于：#{ moment(user.meta.createAt).format('YYYY-MM-DD') }
+							.row
+								a.tab-btn.text-muted(href="javascript:0;") 修改密码
+							button.btn.btn-danger(type="submit",style="position:absolute;display:none;top:1rem;right:2rem") 保存
+				.panel.panel-default.tab-view(style="display:none")
+					a.tab-btn.text-muted(href="javascript:0;",style="font-size:2.5rem;margin:1rem;line-height:2")
+						span.glyphicon.glyphicon-chevron-left
+					form#changepwd.form-inline(method="POST", action="/user/changepwd")
+						.panel-body.text-center(style="padding: 170px 0")
+							input(type="hidden", name="id", id="id", value="#{user._id}")
+							.form-group
+								label(for="newpwd") 新密码：
+								input.form-control(type="text", name="user[newpwd]", id="newpwd", val-type="pwd")
+							| &nbsp;&nbsp;
+							button.btn.btn-default(type="button", name="sbm") 修改
