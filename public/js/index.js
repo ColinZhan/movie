@@ -28,7 +28,7 @@ $(function() {
 			$('#commentId').val(commentId);
 		}else{
 			$('<input>').attr({
-				type: 'hidden',
+				type: 'hidden',·
 				id: 'commentId',
 				name: 'comment[cid]',
 				value: commentId
@@ -345,6 +345,7 @@ function postchangepwd(form) {
 				console.log(window.location);
 				location.assign('http://'+window.location.host+'/signin');
 			});
+
 		}
 	})
 	.fail(function() {
