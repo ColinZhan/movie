@@ -64,7 +64,8 @@ block content
           label.col-sm-3.control-label(for="inputSummary") 电影简介
           .col-sm-7
             textarea#inputSummary.form-control(type="text", name="movie[summary]", rows='8', value= movie.summary)
-              #{movie.summary}
+              if movie.summary
+                #{movie.summary}
         .form-group
           .col-sm-offset-2.col-sm-8
           button.btn.btn-primary(type="submit") 录入

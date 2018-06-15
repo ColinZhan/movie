@@ -12,27 +12,31 @@ body
 				.user-form
 					h1.text-primary.text-center.text-uppercase= title
 					hr
-					form.form-horizontal(method="POST", action="/user/signup", enctype="multipart/form-data")
+					form#signup.form-horizontal(method="POST", action="/user/signup", enctype="multipart/form-data")
 						.form-group
 							label(for="signupName").col-sm-2.control-label 用户名
 							.col-sm-10
-								input(name="user[name]", type="text",placeholder="请输入用户名", required, autofocus)#signupName.form-control
+								input(name="user[name]", type="text",placeholder="请输入用户名", val-type="username", autofocus)#signupName.form-control
+								span.help-block.hide 4到16位（字母，数字，下划线，减号）
 						.form-group
 							label(for="nickName").col-sm-2.control-label 昵称
 							.col-sm-10
-								input(name="user[nick]", type="text",placeholder="请输入昵称", required, autofocus)#nickName.form-control
+								input(name="user[nick]", type="text",placeholder="请输入昵称", val-type="nick")#nickName.form-control
+								span.help-block.hide 2个字以上的中文、英文或数字
 						.form-group
 							label(for="signupPassword").col-sm-2.control-label 密码
 							.col-sm-10
-								input(name="user[password]", type="password", placeholder="请输入密码", required)#signupPassword.form-control
+								input(name="user[password]", type="password", placeholder="请输入密码", val-type="pwd")#signupPassword.form-control
+								span.help-block.hide 至少6位英文和数字组合
 						.form-group
-							label(for="pass").col-sm-2.control-label 确认密码
+							label(for="passpwd").col-sm-2.control-label 确认密码
 							.col-sm-10
-								input(name="user[pass]", type="password", placeholder="请再次输入密码", required)#pass.form-control
+								input(name="user[passpwd]", type="password", placeholder="请再次输入密码", val-type="passpwd")#passpwd.form-control
+								span.help-block.hide 密码不一致
 						.form-group
 							label(for="photo").col-sm-2.control-label 头像
 							.col-sm-10
-								input(name="photo", type="file")#photo
+								input(name="photo", type="file", val-type="image")#photo
 						.form-group
 							label(for="signupSex").col-sm-2.control-label 性别
 							.col-sm-10
@@ -45,7 +49,7 @@ body
 						.form-group
 							label(for="signupBirthAt").col-sm-2.control-label 出生日期
 							.col-sm-10
-								input(name="user[birthAt]", type="text", placeholder="请选择出生日期", data-language="ch", data-multiple-dates-separator="~", readonly)#signupBirthAt.form-control.datepicker-here
+								input(name="user[birthAt]", type="text", placeholder="请选择出生日期", data-language="ch", val-type="date", readonly)#signupBirthAt.form-control.datepicker-here
 						.form-group
 							.col-sm-offset-2.col-sm-10
-								button.btn.btn-success(type="submit") 注册
+								button.btn.btn-success(type="button", name="sbm") 注册

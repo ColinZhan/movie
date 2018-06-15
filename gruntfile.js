@@ -46,15 +46,14 @@ module.exports = function(grunt){
 		uglify: {
 			development: {
 				files: {
-					'public/build/js/admin.min.js': 'public/js/admin.js',
-					'public/build/js/detail.min.js': [
-						'public/js/detail.js'
+					'public/build/js/index.min.js': [
+						'public/js/index.js'
 					],
 					'public/build/js/common.min.js': [
 						'public/js/datepicker.js',
 						'public/js/sweetalert.js',
 						'public/js/i18n/datepicker.ch.js',
-						'public/js/i18n/datepicker.en.js'
+						'public/js/i18n/datepicker.en.js',
 					]
 				}
 			}

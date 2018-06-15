@@ -15,9 +15,9 @@
 	.container
 		if user
 			p.navbar-text.navbar-right
-				img.img-circle(src="/upload/#{user.portrait}", alt="#{user.nick}", style="width: 25px")
-				span &nbsp; | &nbsp;
-				| #{user.nick}
+				a.navbar-link(href="/profile" data-toggle="tooltip" data-placement="left" title="个人信息")
+					img.img-circle(src="/upload/#{user.portrait}", alt="#{user.nick}", style="width: 25px; margin-right:8px")
+					| #{user.nick}
 				span &nbsp; | &nbsp;
 				a.navbar-link(href="/logout") 退出
 		else

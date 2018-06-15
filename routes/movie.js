@@ -17,9 +17,12 @@ router.get('/results', Index.search);
 //User
 router.post('/user/signup', Index.savePhoto, User.signup);
 router.post('/user/signin', User.signin);
+router.post('/user/changeinfo', User.signinRequired, Index.savePhoto, User.changeinfo);
+router.post('/user/changepwd', User.signinRequired, User.changepwd);
 router.get('/signin', User.showSignin);
 router.get('/signup', User.showSignup);
-router.get('/logout', User.logout);
+router.get('/logout', User.signinRequired, User.logout);
+router.get('/profile', User.signinRequired, User.profile);
 router.get('/admin/user/list', User.signinRequired, User.adminRequired, User.list);
 router.delete('/admin/user/list', User.signinRequired, User.adminRequired, User.del);
 router.post('/admin/user/setrole', User.signinRequired, User.adminRequired, User.setrole);
@@ -39,5 +42,6 @@ router.post('/user/comment', User.signinRequired, Comment.save);
 // router.post('/admin/category', User.signinRequired, User.adminRequired, Category.save);
 // router.get('/admin/category/new', User.signinRequired, User.adminRequired, Category.new);
 // router.get('/admin/category/list', User.signinRequired, User.adminRequired, Category.list);
+// router.delete('/admin/category/list', User.signinRequired, User.adminRequired, Category.del);
 
 module.exports = router;
